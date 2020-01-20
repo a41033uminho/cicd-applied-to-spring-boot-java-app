@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cicd</groupId>
 	<artifactId>cicd-applied-to-spring-boot-java-app</artifactId>
@@ -14,22 +15,32 @@
 	<name>cicd-applied-to-spring-boot-java-app</name>
 	<description>Implementing CI/CD on Spring Boot Java App</description>
 
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- property useful for  spotify's dockerfile-maven-plugin -->
-		<docker.image.prefix>a41033uminho</docker.image.prefix>		
-		<!--Not adding artifacts to remote repository-->	
+		<!-- property useful for spotify's dockerfile-maven-plugin -->
+		<docker.image.prefix>a41033uminho</docker.image.prefix>
+		<!--Not adding artifacts to remote repository -->
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<!-- GitHub OAuth token & server -->
 		<github.global.server>github</github.global.server>
-        <github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
-        <!-- Useful for Heroku Deployment -->   
-        <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
+		<github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
+		<!-- Useful for Heroku Deployment -->
+		<full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -54,12 +65,12 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- spotify's dockerfile-maven-plugin -->	
+			<!-- spotify's dockerfile-maven-plugin -->
 			<plugin>
-	            <groupId>com.spotify</groupId>
-	            <artifactId>dockerfile-maven-plugin</artifactId>
-	            <version>1.4.9</version>
-	            <executions>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.9</version>
+				<executions>
 					<execution>
 						<id>default</id>
 						<phase>install</phase>
@@ -69,13 +80,13 @@
 						</goals>
 					</execution>
 				</executions>
-	            <configuration>
-	                <repository>${docker.image.prefix}/${project.artifactId}</repository>
-			
-	                <serverId>index.docker.io</serverId>
-	      		<registryUrl>https://index.docker.io:443/v1/</registryUrl>
-	            </configuration>
-        	</plugin>
+				<configuration>
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+
+					<serverId>index.docker.io</serverId>
+					<registryUrl>https://index.docker.io:443/v1/</registryUrl>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
